@@ -12,6 +12,8 @@ public class HP : MonoBehaviour {
 	Animator ani;
 
 	Slider s;
+
+	public GameObject Cv;
 	//代表关羽的血量
 	public int hp = 100;
 	/// <summary>
@@ -37,6 +39,7 @@ public void Damage(int v)
 				//Destory销毁的方法 1.代表销毁的对象 2.代表延时时间（不写则立即销毁）
 				//Destroy(gameObject, 1);
 				ani.SetBool("Death", true);
+				Cv.SetActive(false);
             }
 		}
     }

@@ -78,13 +78,13 @@ public class CharacterMove : MonoBehaviour {
 			//传入目标方向返回该方向的目标角度
 			Quaternion q = Quaternion.LookRotation(targetPos);
 			//慢慢旋转至目标方向
-			transform.rotation = Quaternion.Lerp(transform.rotation, q, 0.5f);
+			transform.rotation = Quaternion.Lerp(transform.rotation, q, 1f);
 			//看向的另一种实现方式
 			//LookAt看向目标点
 			//transform.LookAt(targetPos);
 			//实现移动
 			//MoveTowards参数1.当前位置 2.目标位置  3.移动比例  值越小移动 越慢
-			transform.position = Vector3.MoveTowards(transform.position, targetPos, 1);
+			transform.position = Vector3.MoveTowards(transform.position, targetPos, 0.05f);
 		}
         //练习：点击右键播放攻击动画
         //当点击q键
@@ -101,6 +101,13 @@ public class CharacterMove : MonoBehaviour {
 			ani.SetBool("Atk1", true);
 
 		}
+		//当点击e键
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			//播放攻击动画
+			ani.SetBool("Atk2", true);
+
+		}
 		//当抬起Q键
 		if (Input.GetKeyUp(KeyCode.Q))
         {
@@ -112,6 +119,12 @@ public class CharacterMove : MonoBehaviour {
 		{
 			//取消播放攻击动画
 			ani.SetBool("Atk1", false);
+		}
+		//当抬起e键
+		if (Input.GetKeyUp(KeyCode.E))
+		{
+			//取消播放攻击动画
+			ani.SetBool("Atk2", false);
 		}
 	}
     //诞生点
@@ -126,7 +139,6 @@ public class CharacterMove : MonoBehaviour {
         Instantiate(skill, point.position, point.rotation);
     }
 	//诞生点
-	public Transform point1;
 	/// <summary>
 	/// 攻击事件 诞生技能
 	/// </summary>
@@ -135,5 +147,12 @@ public class CharacterMove : MonoBehaviour {
 		//诞生的逻辑
 		//1.克隆的物体   2.克隆的位置  3.旋转
 		Instantiate(skill1, point.position, point.rotation);
+	}
+
+	public void OnAttack2(GameObject skill2)
+	{
+		//诞生的逻辑
+		//1.克隆的物体   2.克隆的位置  3.旋转
+		Instantiate(skill2, point.position, point.rotation);
 	}
 }
